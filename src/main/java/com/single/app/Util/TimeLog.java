@@ -8,7 +8,7 @@ import java.util.Date;
  * @since	2020-03-31
  * @Method	log system
  */
-public class timeLog {
+public class TimeLog {
 	public static void debug(String str) {
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 		Date time = new Date();

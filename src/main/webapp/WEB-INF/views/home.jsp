@@ -35,7 +35,11 @@
 				
 				$('button').on('click', (e) => {
 					getNet('GET', '/rest/selectList', paging, true, (data) => {
-						console.log(JSON.parse(data));
+						console.log(data);
+						if(data.status.response != 200) {
+							alert('[' + data.status.error.errorCode + '] ' + data.status.error.errorMsg + '\n' + data.status.error.errorComment);
+							return;
+						}
 					}, Net_fail)
 				})
 			});

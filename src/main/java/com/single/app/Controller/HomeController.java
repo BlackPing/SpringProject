@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @ÀÛ¼ºÀÚ	black_ping
@@ -22,8 +20,11 @@ public class HomeController {
 	
 	@GetMapping(value = "/")
 	public String home(Locale locale, Model model) {
-		System.out.println(value);
+		return "home";
+	}
 	
+	@GetMapping(value = "/test")
+	public String home2(Locale locale, Model model) {
 		return "home";
 	}
 }
