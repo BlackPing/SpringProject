@@ -45,6 +45,7 @@ public class DataController {
 			param.put("page_count", page_count * 1);
 			
 			result.put("row", ADI.sql("SL", "test", "list", param));
+			result.put("count", ADI.sql("SO", "test", "count", param));
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.clear();

@@ -1,0 +1,9 @@
+.pointer { cursor: pointer; }
+
+.paging {
+	padding: 0px 5px 0px 5px;
+}
+
+.pagingSelect {
+	font-weight: 700;
+}

@@ -4,7 +4,9 @@
 	<head>
 		<title>문서함</title>
 		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="/resources/css/common.css" />
 		<script type="text/javascript" src="resources/lib/jquery-3.4.1.min.js"></script>
+		<script type="text/javascript" src="resources/blackping/util.js"></script>
 		<script type="text/javascript" src="resources/blackping/paging.js"></script>
 		<script>
 		/* PAGING - code by black_ping
@@ -14,24 +16,7 @@
 	*/
 		let paging = { page_index: 0, page_count: 5 }
 			$(document).ready(function () {
-				function Net_fail() {
-				    alert('서버 오류')
-				}
-
-				pagingView(1,5);
-				function getNet(Method, URL, DATA, sync, done, fail) {
-				    $.ajax({
-				    	method: Method, 
-				    	url: URL, 
-				    	cache: false, 
-				    	data: DATA, 
-				    	async: sync,
-				    	header:{
-							"Content-Type":"application/json",	//Content-Type 설정
-							"X-HTTP-Method-Override":"" + Method + ""
-						}
-				    }).done(done).fail(fail);
-				}
+				pagingView(paging, 0);
 				
 				console.log("test");
 				
@@ -53,24 +38,26 @@
 			리스트따리들
 			
 		</h1>
-		
-		<div id="board">
-			<table>
-				<thead>
-					<tr>
-						<th>test1</th>
-						<th>test2</th>
-						<th>test3</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-					</tr>
-				</tbody>
-			</table>
+		<div>
+			<div id="board">
+				<table>
+					<thead>
+						<tr>
+							<th>test1</th>
+							<th>test2</th>
+							<th>test3</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="board_page">page</div>
+			</div>
 		</div>
 	</body>
 </html>
