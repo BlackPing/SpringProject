@@ -8,9 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * @ÀÛ¼ºÀÚ	black_ping
+ * @ï¿½Û¼ï¿½ï¿½ï¿½	black_ping
  * @since	2020-03-09
- * @Method	ÄÁÆ®·Ñ·¯ Å×½ºÆ®
+ * @Method	ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½×½ï¿½Æ®
  */
 
 @Controller
@@ -26,5 +26,20 @@ public class HomeController {
 	@GetMapping(value = "/test")
 	public String home2(Locale locale, Model model) {
 		return "home";
+	}
+	
+	@GetMapping(value = "/gridstack")
+	public String gridstack(Locale locale, Model model) {
+		return "gridstack";
+	}
+	
+	@GetMapping(value = "/page1")
+	public String page1(Locale locale, Model model) {
+		return "page1";
+	}
+	
+	@GetMapping(value = "/page2")
+	public String page2(Locale locale, Model model) {
+		return "page2";
 	}
 }
