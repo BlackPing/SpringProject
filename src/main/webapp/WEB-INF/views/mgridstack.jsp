@@ -18,7 +18,6 @@
 		</style>
 		
 		<script>
-			var grid;
 			addEventListener("DOMContentLoaded", (event) => {
 				selectLayoutList();
 				
@@ -40,7 +39,6 @@
 				        handle: '.panel-heading',
 				    }
 				}
-				grid = GridStack.init(gridOption);
 /* 				const items = [
 					  {x: 0, y: 0, w: 2, h: 1, content: '<h3 style="background-color: red;" class="panel-heading">TEST1</h3><div style="padding:10px;"><iframe frameborder="0" marginwidth="0" marginheight="0" scrolling="" style="width: 100%; height: 100%; border: 0;" src="/page1"></iframe></div>'},
 					  {x: 0, y: 1, w: 2, h: 1, content: '<h3 style="background-color: red;" class="panel-heading">TEST2</h3><div><iframe frameborder="0" marginwidth="0" marginheight="0" scrolling="" style="width: 100%; height: 100%; border: 0;" src="/page2"></iframe></div>'},
@@ -54,51 +52,10 @@
 				]; */
 				
 				const items = [];
-//				grid.movable(grid.getColumn(1), false);
+				var grid = GridStack.init(gridOption);
 				grid.load(items);
-				
-				document.getElementById('addBtn').addEventListener('click', (e) => {
-					console.log('click');
-					grid.addWidget({w: 1, h: 1, content: 'hello'});
-				})
-				
-				document.getElementById('layoutAdd').addEventListener('click', (e) => {
-					if($('#layoutNm').val() == '') {
-						alert('레이아웃명이 비었습니다.');
-						return;
-					}
-					
-					if(confirm("레이아웃을 추가합니다")) {
-						getNet('POST', '/rest/insertLayout', {layoutNm: $('#layoutNm').val()}, true, (data) => {
-							console.log(data);
-							if(data.status.response != 200) {
-								alert('[' + data.status.error.errorCode + '] ' + data.status.error.errorMsg + '\n' + data.status.error.errorComment);
-								return;
-							} else {
-								alert('레이아웃 추가 완료');
-								selectLayoutList();
-							}
-						}, Net_fail); 
-					}
-				})
-				/* grid.movable(grid.getGridItems()[0], false);
-				grid.resizable(grid.getGridItems()[0], false); */
-				
-				/* getNet('GET', '/rest/selectLayout', {}, true, (data) => {
-					console.log(data);
-					if(data.status.response != 200) {
-						alert('[' + data.status.error.errorCode + '] ' + data.status.error.errorMsg + '\n' + data.status.error.errorComment);
-						return;
-					}
-				}, Net_fail); */
-				
-				var layoutNo;
-				var layoutContent;
-				var positionX;
-				var postiionY;
-				var postiionW;
-				var postiionH;
-				var layoutDatatype;
+				grid.enableMove(false);
+				grid.enableResize(false);
 				
 				$("#layoutList").on("change", function(){
 					var value = $(this).val();
@@ -113,52 +70,9 @@
 							console.log(data);
 							data = data.row.result;
 							for(let i = 0; i < data.length; i++) {
-								data[i].content = '<div style="width: 100%; height: 100%; background-color: white; position: absolute;top: 0; left: 0; z-index: 1; opacity: 0.1;"></div><iframe style="width: 100%; height: 100%; border: 0; position: absolute; top: 0; left: 0;" src="' + data[i].LAYOUT_CONTENT + '"></iframe>';
+								data[i].content = '<iframe style="width: 100%; height: 100%; border: 0;" src="' + data[i].LAYOUT_CONTENT + '"></iframe>';
 							}
 							grid.load(data);
-						}
-					}, Net_fail);
-				});
-				
-/* 				var resizeContent;
-				grid.on('resizestart', function(e, target) {
-					let node = target.gridstackNode;
-					resizeContent = node;
-					
-					grid.update(target, {x: node.x, y: node.y, w: node.w, h: node.h, content: 'TEST'})
-					console.log("resizestart", e);
-					console.log(target.gridstackNode);
-				});
-				
-				grid.on('resizestop', function(e, target) {
-					grid.update(target, resizeContent)
-				}); */
-				
-				$('#layoutUpdate').on("click", function() {
-					console.log('click');
-					
-					var item = [];
-					var node = {};
-					
-					var gridItem = grid.getGridItems();
-					for(let i = 0; i < gridItem.length; i++) {
-						node.layoutContent = 'http://test-ping.co.kr:8080/page1'
-						node.positionX = gridItem[i].gridstackNode.x
-						node.positionY = gridItem[i].gridstackNode.y
-						node.positionW = gridItem[i].gridstackNode.w
-						node.positionH = gridItem[i].gridstackNode.h
-						node.layoutDatatype = 'URL'
-						item[i] = node;
-						node = {};
-					}
-					
-					getNet('POST', '/rest/updateLayoutContent', {layoutNo: $('#layoutList').val(), item: JSON.stringify(item)}, true, (data) => {
-						if(data.status.response != 200) {
-							alert('[' + data.status.error.errorCode + '] ' + data.status.error.errorMsg + '\n' + data.status.error.errorComment);
-							return;
-						} else {
-							console.log(data);
-							alert('저장완료!');
 						}
 					}, Net_fail);
 				});
@@ -180,17 +94,16 @@
 							$layoutList.append('<option value="' + data[i].LAYOUT_NO + '">' + data[i].LAYOUT_NM + '</option>');
 						}
 					}
-				}, Net_fail);
+				}, Net_fail); 
 			}
 		</script>
 	</head>
 	<body>
-		<h1>gridstack</h1>
-		<input id="layoutNm" type="text" placeholder="레이아웃 명" /><button id="layoutAdd">레이아웃 추가</button><button id="layoutUpdate">레이아웃 저장</button>
+		<h1>mgridstack</h1>
 		<select id="layoutList">
 			<option value="">선택</option>
 		</select>
-		<button id="addBtn">항목 추가</button>
 		<div class="grid-stack"></div>
+		<div id="modal" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background-color: rgba(0, 0, 0, 0.4);">modal</div>
 	</body>
 </html>

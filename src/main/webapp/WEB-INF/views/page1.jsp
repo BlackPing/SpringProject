@@ -5,6 +5,7 @@
 		<title>page1</title>
 		<meta charset="utf-8">
 	</head>
+	<script type="text/javascript" src="resources/lib/jquery-3.4.1.min.js"></script>
 	<style>
 		body {
 			background-color: black;
@@ -13,7 +14,16 @@
 			color: white;
 		}
 	</style>
+	<script>
+		addEventListener("DOMContentLoaded", (event) => {
+			$('#test').on('click', function(e) {
+				console.log('click');
+				parent.$('#modal').show();
+			})
+		});
+	</script>
 	<body>
 		<h1>page1</h1>
+		<button id="test">test</button>
 	</body>
 </html>

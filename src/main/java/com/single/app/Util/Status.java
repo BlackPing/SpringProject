@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import com.single.app.Util.Interface.StatusInterface;
 
 /**
- * @ÀÛ¼ºÀÚ	black_ping
+ * @ï¿½Û¼ï¿½ï¿½ï¿½	black_ping
  * @since	2020-03-09
- * @Method	»óÅÂ ½Ã½ºÅÛ ÅëÇÕ °ü¸®
- * ½Ì±ÛÅæ
+ * @Method	ï¿½ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ * ï¿½Ì±ï¿½ï¿½ï¿½
  */
 
 @Component
@@ -42,7 +42,7 @@ public class Status implements StatusInterface {
 			result.put("error", error);
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Status Class Error ¾Æ±Ô¸ÕÆ® Á¤º¸°¡ Á¤»óÀûÀ¸·Î ³Ñ¾î¿ÀÁö ¾Ê¾Ò½À´Ï´Ù. 0: error-code, 1: message, 2: comment");
+			System.out.println("Status Class Error 0: error-code, 1: message, 2: comment");
 		}
 	}
 	

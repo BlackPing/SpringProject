@@ -33,6 +33,11 @@ public class HomeController {
 		return "gridstack";
 	}
 	
+	@GetMapping(value = "/mgridstack")
+	public String mgridstack(Locale locale, Model model) {
+		return "mgridstack";
+	}
+	
 	@GetMapping(value = "/page1")
 	public String page1(Locale locale, Model model) {
 		return "page1";

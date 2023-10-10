@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postgreSQL">
+	<select id="layout" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			*
+		FROM
+			"LAYOUT"
+		WHERE
+			"DELETE_YN" = 'N'
+	</select>
+	
+	<select id="layoutContent" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			"LAYOUT_NO"
+			, "LAYOUT_CONTENT"
+			, "POSITION_X" AS x
+			, "POSITION_Y" AS y
+			, "POSITION_W" AS w
+			, "POSITION_H"  h
+			, "LAYOUT_DATATYPE"
+		FROM
+			"LAYOUT_CONTENT"
+		WHERE
+			"DELETE_YN" = 'N'
+			AND "LAYOUT_NO" = ${layoutNo}
+	</select>
+	
+	<select id="layoutInsert" parameterType="hashmap" resultType="hashmap">
+		INSERT INTO "LAYOUT" ("LAYOUT_NM") VALUES (#{layoutNm})
+	</select>
+	
+	<select id="layoutContentInsert" parameterType="hashmap" resultType="hashmap">
+		INSERT INTO "LAYOUT_CONTENT" ("LAYOUT_NO", "LAYOUT_CONTENT", "POSITION_X", "POSITION_Y", "POSITION_W", "POSITION_H", "LAYOUT_DATATYPE") VALUES (${layoutNo}, #{layoutContent}, #{positionX}, #{positionY}, #{positionW}, #{positionH}, #{layoutDatatype})
+	</select>
+	
+	<select id="layoutContentDelete" parameterType="hashmap" resultType="hashmap">
+		UPDATE
+			"LAYOUT_CONTENT"
+		SET
+			"DELETE_YN" = 'Y'
+		WHERE
+			"LAYOUT_NO" = ${layoutNo};
+	</select>
+</mapper>
